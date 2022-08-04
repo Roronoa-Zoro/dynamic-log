@@ -11,8 +11,8 @@ public class LogbackDynamicLogFilter extends TurboFilter implements DynamicLogFi
 
     @Override
     public FilterReply decide(Marker marker, Logger logger, Level level, String s, Object[] objects, Throwable throwable) {
-        boolean isMyLogger = logger.getName().startsWith("com.illegalaccess.log.dynamic.core.logback");
-        if (!isMyLogger) {
+        boolean skip = logger.getName().startsWith("com.illegalaccess.log.dynamic.core.logback");
+        if (skip || level != Level.DEBUG) {
             return FilterReply.NEUTRAL;
         }
 

@@ -20,75 +20,75 @@ public class Log4j2DynamicLogFilter extends AbstractFilter implements DynamicLog
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, Message msg, Throwable t) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, Object msg, Throwable t) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object... params) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2, Object p3) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2, Object p3, Object p4) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
             Object p7) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
             Object p7, Object p8) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
     @Override
     public Result filter(Logger logger, Level level, Marker marker, String msg, Object p0, Object p1, Object p2, Object p3, Object p4, Object p5, Object p6,
             Object p7, Object p8, Object p9) {
-        return debugFilter(logger);
+        return debugFilter(logger, level);
     }
 
-    private Result debugFilter(Logger logger) {
+    private Result debugFilter(Logger logger, Level level) {
         boolean skip = logger.getName().startsWith("com.illegalaccess.log.dynamic.core.log4j2");
-        if (skip) {
+        if (skip || level != Level.DEBUG) {
             return Result.NEUTRAL;
         }
 
