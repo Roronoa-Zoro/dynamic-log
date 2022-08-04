@@ -3,6 +3,9 @@
 1. logback
 2. log4j2
 
+### 支持的场景
+默认支持使用SpringRequest里面获取header的值
+
 ### 使用方式
 #### logback   
 在logback.xml配置添加一个filter
@@ -75,3 +78,9 @@ DynamicLogContext.enableDebug();
 ```java
 DynamicLogContext.clear();
 ```
+
+2. 如果系统使用其他的框架，如struts等，需要自己实现如下接口：
+```java
+LogLevelDecider
+```   
+然后把实现类放到META-INF/services/目录下，文件名字是class的全路径名，里面的值也是类的全路径名   

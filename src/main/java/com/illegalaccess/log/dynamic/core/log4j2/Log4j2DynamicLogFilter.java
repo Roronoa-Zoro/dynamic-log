@@ -1,6 +1,6 @@
 package com.illegalaccess.log.dynamic.core.log4j2;
 
-import com.illegalaccess.log.dynamic.core.DynamicLogHelper;
+import com.illegalaccess.log.dynamic.core.base.DynamicLogFilter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.core.Filter;
@@ -10,11 +10,9 @@ import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderFactory;
 import org.apache.logging.log4j.core.filter.AbstractFilter;
 import org.apache.logging.log4j.message.Message;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
 
 @Plugin(name = "DynamicLogFilter", category = Node.CATEGORY, elementType = Filter.ELEMENT_TYPE, printObject = true)
-public class Log4j2DynamicLogFilter extends AbstractFilter {
+public class Log4j2DynamicLogFilter extends AbstractFilter implements DynamicLogFilter {
 
     public Log4j2DynamicLogFilter(Result onMatch, Result onMismatch) {
         super(onMatch, onMismatch);
@@ -94,17 +92,7 @@ public class Log4j2DynamicLogFilter extends AbstractFilter {
             return Result.NEUTRAL;
         }
 
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (requestAttributes == null) {
-            return Result.NEUTRAL;
-        }
-
-        boolean debugEnabled = DynamicLogHelper.parseDebugHeader(requestAttributes);
-        if (debugEnabled) {
-            return Result.ACCEPT;
-        }
-
-        return Result.NEUTRAL;
+        return dynamicFilter() ? Result.ACCEPT : Result.NEUTRAL;
     }
 
     @Override
